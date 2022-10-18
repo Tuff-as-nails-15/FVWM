@@ -48,7 +48,6 @@ DestroyMenu FvwmRootMenu
 AddToMenu FvwmRootMenu "OWO" Title
 + "Run%menu/find.svg%" FvwmRofi
 + "Applications%menu/applications.svg%" Popup FvwmProgramsMenu
-+ # "Lock%menu/lock.png%" Popup XLockMenu
 + "FVWM Console%menu/terminal.png%"  Module FvwmConsole
 + "XDGMenu" Popup XDGMenu
 + "" Nop

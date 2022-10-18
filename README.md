@@ -11,6 +11,7 @@ Dependencies
     xscreensaver
     xsettingsd
     st
+    flameshot
 
 Keyboard Shortcuts
 

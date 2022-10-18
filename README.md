@@ -10,6 +10,7 @@ Dependencies
     stalonetray
     xscreensaver
     xsettingsd
+    st
 
 Keyboard Shortcuts
 

@@ -1,0 +1,284 @@
+#------------------------------------------------------------------------------
+# FVWM Configuration
+#------------------------------------------------------------------------------
+
+ExecUseShell /bin/bash
+
+ModulePath $[FVWM_USERDIR]:+
+
+#------------------------------------------------------------------------------
+# Functions
+#------------------------------------------------------------------------------
+
+Read $[FVWM_USERDIR]/functions
+
+#------------------------------------------------------------------------------
+# Settings
+#------------------------------------------------------------------------------
+
+
+
+#           $HOME/.fvwm/config
+
+SetEnv img_home $[HOME]/Pictures
+SetEnv fvwm_home $[HOME]/.fvwm
+SetEnv fvwm_img $[fvwm_home]/images
+SetEnv fvwm_icon $[fvwm_img]/icons
+SetEnv fvwm_wallpaper $[fvwm_img]/wallpaper
+
+SetEnv fvwm_music_player /usr/bin/cmus
+SetEnv fvwm_video_player /usr/bin/vlc
+SetEnv fvwm_editor vim
+SetEnv fvwm_ss /usr/bin/ss-qt5
+
+ImagePath $[fvwm_icon]:$[fvwm_icon];.png:$[fvwm_wallpaper]:+
+
+Read $[FVWM_USERDIR]/settings
+
+SetEnv fvwm_theme $[infostore.theme]
+
+LocalePath $[FVWM_USERDIR]/locale;config:+
+ImagePath  $[FVWM_USERDIR]/themes/$[fvwm_theme]:$[FVWM_USERDIR]/3dpixmaps:+
+
+-----------------------------------
+# Start Function
+#------------------------------------------------------------------------------
+# main menu
+DestroyMenu FvwmRootMenu
+AddToMenu FvwmRootMenu "OWO" Title
++ "Run%menu/find.svg%" FvwmRofi
++ "Applications%menu/applications.svg%" Popup FvwmProgramsMenu
++ # "Lock%menu/lock.png%" Popup XLockMenu
++ "FVWM Console%menu/terminal.png%"  Module FvwmConsole
++ "XDGMenu" Popup XDGMenu
++ "" Nop
++ "Restart Fvwm%menu/restart.png%" Restart
++ "Quit Fvwm%menu/quit.png%" Quit
+
+# left click menu
+DestroyMenu FvwmProgramsMenu
+AddToMenu   FvwmProgramsMenu "OwU" Title
+# Test (x chromium) + "Chromium" Exec exec chromium
+Test (x firefox) + "Firefox" Exec exec firefox
+Test (x kitty) + "kitty" Exec exec kitty
+Test (x nemo) + "Nemo" Exec exec nemo
+Test (x vim) + "discord" Exec exec discord
+
+# right click menu
+DestroyMenu FvwmOpsMenu
+AddToMenu FvwmOpsMenu "UwO" Title
++ "(Un)Stick%menu/window-stick.xpm%"  Stick
++ "Identify%menu/window-identify.xpm%"  Module FvwmIdent
++ "%menu/window.xpm%Window Screenshot"  Pick (CirculateHit) FvwmWindowScreenshot
++ "%menu/display.xpm%Screenshot" FvwmDesktopScreenshot 5
++ "Shutdown%menu/shutdown.svg%" FvwmShutdown
+
+
+
+
+
+#------------------------------------------------------------------------------
+# WM Settings
+#------------------------------------------------------------------------------
+
+# Sets all windows to OpaqueMove (vs a wired frame) and  windows will
+# snap to each other and the edge of the screen.
+OpaqueMoveSize unlimited
+Style * ResizeOpaque, SnapAttraction 15 SameType ScreenAll, SnapGrid
+
+# Transient Windows (such as open file windows)
+Style * DecorateTransient, StackTransientParent
+Style * !FPGrabFocusTransient, FPReleaseFocusTransient
+DesktopSize 4x1
+
+# does something to stop multi DE's 
+Emulate mwm
+HideGeometryWindow Move 
+IgnoreModifiers L2
+ClickTime 550
+OpaqueMoveSize 100
+IgnoreModifiers L25
+MoveThreshold 3
+
+EdgeScroll 0 0
+EdgeResistance 500
+EdgeThickness 1
+
+BusyCursor DynamicMenu False, Read True
+
+CursorStyle ROOT         left_ptr
+CursorStyle TITLE        left_ptr
+CursorStyle DEFAULT      left_ptr
+
+Style * ClickToFocus
+Style * MouseFocusClickRaises
+Style * PositionPlacement Center
+Style * ResizeOpaque
+Style * WindowShadeSteps 20
+Style * SnapAttraction 5 All ScreenAll
+Style * SnapGrid 5 5
+Style * EdgeMoveDelay 350, EdgeMoveResistance 350
+Style * !UsePPosition,!UseIconPosition
+Style * EWMHDonateIcon
+Style * GrabFocus, GrabFocusTransient
+Style * !FPReleaseFocus
+Style * FPLenient
+Style * DecorateTransient, DontLowerTransient, UseTransientPPosition
+Style * MWMFunctions
+Style * MWMDecor
+Style * HintOverride
+Style * OLDecor
+Style * EWMHUseStackingOrderHints
+#Style * EWMHPlacementIgnoreWorkingArea
+#Style * EWMHIgnoreStateHints
+Style * GNOMEIgnoreHints
+#Style * ParentalRelativity
+
+# emulates a WM
+Style "Fvwm*"        UsePPosition, TileCascadePlacement
+Style fvwm_menu      UsePPosition, EWMHUseStateHints
+Style gnomesu        UsePPosition, EWMHUseStateHints
+Style gpodder        !UsePPosition, EWMHIgnoreStateHints
+Style gcolor3        NoButton 2, NoButton 4, WindowListSkip
+Style Rhythmbox      !UsePPosition, EWMHIgnoreStateHints
+Style Evolution      !UsePPosition, EWMHIgnoreStateHints
+Style Audacious      !UsePPosition, EWMHIgnoreStateHints
+Style panel          Sticky, !Title, WindowListSkip, CirculateSkip, BorderWidth 0
+Style "gthumb"       EWMHIgnoreWindowType, !MWMDecor
+Style "Catfish"      EWMHIgnoreWindowType, !MWMDecor
+Style Xfce4-appfinder UsePPosition, EWMHUseStateHints
+Style caja           UsePPosition, EWMHUseStateHints 
+Style "nautilus"     EWMHIgnoreWindowType, !MWMDecor
+Style "tint2"        !Title, !Handles, !Borders, StaysOnTop, EWMHIgnoreStrutHints, Sticky, EWMHPlacementIgnoreWorkingArea, NeverFocus, WindowListSkip
+Style desktop_icon   CirculateSkip, WindowListSkip,  NoTitle
+Style *lock          !Title, !Handles, Sticky, WindowListSkip
+Style xclock         !Title, !Handles, Sticky, PositionPlacement -10p 10p
+Style stalonetray    !Title, !Handles, WindowListSkip, CirculateSkip, StaysOnBottom,NeverFocus, EWMHUseStackingOrderHints, TileCascadePlacement
+Style fvwm_menu      NoButton 2, NoButton 4, WindowListSkip
+Style lxpolkit       NoButton 2, NoButton 4, UsePPosition
+Style wicd-client.py UsePPosition, EWMHUseStateHints
+
+#------------------------------------------------------------------------------
+# Forms
+#------------------------------------------------------------------------------
+
+Style FvwmForm-QuitVerify NoButton 1, NoButton 2, NoButton 4, NoButton 6, StaysOnTop, NoHandles, WindowListSkip
+DestroyModuleConfig  FvwmForm-VerifyQuit: *
+*FvwmForm-VerifyQuit: Title	  "$[gt.Exit Fvwm]?"
+*FvwmForm-VerifyQuit: GrabServer
+*FvwmForm-VerifyQuit: WarpPointer
+*FvwmForm-VerifyQuit: Line        center
+*FvwmForm-VerifyQuit: Text        "$[gt.Do you really want to logout?]"
+*FvwmForm-VerifyQuit: Line        expand
+*FvwmForm-VerifyQuit: Button      quit "$[gt.Logout]" ^M
+*FvwmForm-VerifyQuit: Command     Quit
+*FvwmForm-VerifyQuit: Button      restart   "$[gt.Restart]" ^R
+*FvwmForm-VerifyQuit: Command     Restart
+*FvwmForm-VerifyQuit: Text        "   "
+*FvwmForm-VerifyQuit: Button      quit "$[gt.Cancel]" ^[
+*FvwmForm-VerifyQuit: Command     Nop
+
+Style FvwmForm-VerifyQuit !Button 1, !Button 2, !Button 4, StaysOnTop, NoHandles, WindowListSkip
+
+Style "FvwmScript-Quit" UsePPosition, !Button 1, !Button 2, !Button 4, StaysOnTop, NoHandles, WindowListSkip, PositionPlacement Center
+
+#------------------------------------------------------------------------------
+# Mouse Bindings
+#------------------------------------------------------------------------------
+# binding for mouse
+Mouse 1 R A Menu FvwmRootMenu
+Mouse 3 R A Menu FvwmOpsMenu
+
+#Mouse 1  R  A     Menu Utilities mouse -1p -1p
+Mouse 2  R  A     WindowList mouse -1p -1p NoGeometry,TitleForAllDesks,NoCurrentDeskTitle,UseIconName
+Mouse 2  R  C     WindowList mouse -1p -1p OnlyListSkip, NoGeometry
+#Mouse 3  R  A     Menu Window mouse -1p -1p
+
+#Mouse 1  W  4     Function "MoveAndRaise"
+Mouse 2  W  4     Menu Window mouse -1p -1p
+Mouse 3  W  4     WindowList (CurrentPage) mouse -1p -1p, NoGeometry 
+#Mouse 3  W  CM    WindowList mouse -1p -1p OnlyListSkip, NoGeometry
+
+#Mouse 1  I  A     Function "MoveOrIconifyOrRaise"
+Mouse 2  I  A     Iconify
+#Mouse 3  I  A     Menu Window-Ops3 c+0 -100m
+
+#------------------------------------------------------------------------------
+# Key Bindings
+#------------------------------------------------------------------------------
+Key F4                     A  M  Close
+Key F4                     A  MS Destroy
+Key F5                     A  M  Function "RaiseLowerKey"
+Key F6                     A  M  All (Iconic) Raise  # originally Restore
+Key F7                     A  M  Move
+Key F8                     A  M  Resize
+Key F9                     A  M  Iconify
+Key F10                    A  M  Maximize
+Key F11                    A  M  FvwmIdent
+Key F12                    A  M  FvwmConsole
+
+Key Left                   A  4  GotoPage -1p +0p
+Key Right                  A  4  GotoPage +1p +0p
+Key Up                     A  4  GotoPage +0p -1p
+Key Down                   A  4  GotoPage +0p +1p
+
+Key Left                   A  C4 MaximizeToSide +0
+Key Right                  A  C4 MaximizeToSide -0
+Key Up                     A  C4 MaximizeOrUnmaximize
+Key Down                   A  C4 IconifyOrUnmaximize
+
+Silent Key Tab             A  M  FuncFvwmNextWindow
+Silent Key Tab             A  4  FuncFvwmNextMaximized
+# FuncFvwmNextAppWindow
+
+# Rofi
+Key Space                  A  4  Exec exec rofi -show run
+Key W                      A  4  Exec exec rofi -show windowcd
+Key e                      A  4  Exec exec $[infostore.launcher]
+Key q                      A  4  Exec exec $FVWM_USERDIR/scripts/rofi/logout.sh
+
+# Terminal
+Key T                      A  MC Exec exec st 
+
+# Lock screen
+# Key L                      A  4 Exec exec xscreensaver-command -l
+
+# Audacious
+Key XF86AudioPlay          A  N  Exec exec audtool playback-playpause
+Key XF86AudioStop          A  N  Exec exec audtool playback-stop
+Key XF86AudioNext          A  N  Exec exec audtool playlist-advance
+Key XF86AudioPrev          A  N  Exec exec audtool playlist-reverse
+
+# Audio
+Key XF86AudioMute          A  N  Exec exec amixer -D pulse sset Master toggle
+Key XF86AudioRaiseVolume   A  N  Exec exec amixer -D pulse sset Master 5%+
+Key XF86AudioLowerVolume   A  N  Exec exec amixer -D pulse sset Master 5%-
+
+
+# Backlight 
+key XF86MonBrightnessUp    A N Exec exec xbacklight -inc 5
+key XF86MonBrightnessDown  A N Exec exec xbacklight -dec 5
+
+# Flameshot
+Key Print   A    M  Exec exec flameshot gui
+
+PipeRead fvwm-menu-desktop --enable-mini-icons --desktop kde
+
+#------------------------------------------------------------------------------
+# wallpaper
+DestroyFunc InitFunction
+AddToFunc InitFunction
+# will cause problems when move windows across pages
++ I Exec exec feh --bg-scale $[fvwm_wallpaper]/win95.png
++ I Exec exec rofi -show run
+#------------------------------------------------------------------------------
+
+
+DestroyMenu
+# Backlight 
+key XF86MonBrightnessUp    A N Exec exec xbacklight -inc 5
+key XF86MonBrightnessDown  A N Exec exec xbacklight -dec 5
+
+# Flameshot
+Key Print   A    M  Exec exec flameshot gui
+

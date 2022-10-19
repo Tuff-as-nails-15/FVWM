@@ -15,6 +15,8 @@ Dependencies
 
 Keyboard Shortcuts
 
+***I duped i3 keybindings also*** 
+
     Alt+F4 -- Close active window
 
     Alt+Shift+F4 -- Destroy active window

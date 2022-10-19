@@ -42,6 +42,9 @@ ImagePath  $[FVWM_USERDIR]/themes/$[fvwm_theme]:$[FVWM_USERDIR]/3dpixmaps:+
 
 -----------------------------------
 # Start Function
+
+AddToFunc StartFunction
++ I Test (init) Exec exec xfce4-panel
 #------------------------------------------------------------------------------
 # main menu
 DestroyMenu FvwmRootMenu
@@ -59,9 +62,9 @@ DestroyMenu FvwmProgramsMenu
 AddToMenu   FvwmProgramsMenu "OwU" Title
 # Test (x chromium) + "Chromium" Exec exec chromium
 Test (x firefox) + "Firefox" Exec exec firefox
-Test (x kitty) + "kitty" Exec exec kitty
-Test (x nemo) + "Nemo" Exec exec nemo
-Test (x vim) + "discord" Exec exec discord
+Test (x kate) + "kate" Exec exec kate
+Test (x pcmanfm) + "Pcmanfm" Exec exec pcmanfm
+Test (x discord) + "Discord" Exec exec discord
 
 # right click menu
 DestroyMenu FvwmOpsMenu
@@ -280,7 +283,7 @@ key XF86MonBrightnessUp    A N Exec exec xbacklight -inc 5
 key XF86MonBrightnessDown  A N Exec exec xbacklight -dec 5
 
 # Flameshot
-Key Print   A    M  Exec exec flameshot gui
+Key Print   A    N  Exec exec flameshot gui
 
 PipeRead fvwm-menu-desktop --enable-mini-icons --desktop kde
 
@@ -301,3 +304,4 @@ key XF86MonBrightnessDown  A N Exec exec xbacklight -dec 5
 
 # Flameshot
 Key Print   A    M  Exec exec flameshot gui
+

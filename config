@@ -133,7 +133,7 @@ Style * EWMHUseStackingOrderHints
 Style * GNOMEIgnoreHints
 #Style * ParentalRelativity
 
-# emulates a WM
+# emulates a WM?
 Style "Fvwm*"        UsePPosition, TileCascadePlacement
 Style fvwm_menu      UsePPosition, EWMHUseStateHints
 Style gnomesu        UsePPosition, EWMHUseStateHints
@@ -206,6 +206,7 @@ Mouse 2  I  A     Iconify
 # Key Bindings
 #------------------------------------------------------------------------------
 Key F4                     A  M  Close
+Key q                      A  MS  Close
 Key F4                     A  MS Destroy
 Key F5                     A  M  Function "RaiseLowerKey"
 Key F6                     A  M  All (Iconic) Raise  # originally Restore
@@ -213,13 +214,19 @@ Key F7                     A  M  Move
 Key F8                     A  M  Resize
 Key F9                     A  M  Iconify
 Key F10                    A  M  Maximize
+Key f                      A  M  Maximize
 Key F11                    A  M  FvwmIdent
 Key F12                    A  M  FvwmConsole
 
-Key Left                   A  4  GotoPage -1p +0p
-Key Right                  A  4  GotoPage +1p +0p
-Key Up                     A  4  GotoPage +0p -1p
-Key Down                   A  4  GotoPage +0p +1p
+Key Left                   A  M  GotoPage -1p +0p
+Key Right                  A  M  GotoPage +1p +0p
+Key Up                     A  M  GotoPage +0p -1p
+Key Down                   A  M  GotoPage +0p +1p
+
+Key 1                      A  M  GotoDesk 0 0
+Key 2                      A  M  GotoDesk 0 1
+Key 3                      A  M  GotoDesk 0 2
+Key 4                      A  M  GotoDesk 0 3
 
 Key Left                   A  C4 MaximizeToSide +0
 Key Right                  A  C4 MaximizeToSide -0
@@ -227,17 +234,32 @@ Key Up                     A  C4 MaximizeOrUnmaximize
 Key Down                   A  C4 IconifyOrUnmaximize
 
 Silent Key Tab             A  M  FuncFvwmNextWindow
-Silent Key Tab             A  4  FuncFvwmNextMaximized
+Silent Key Tab             A  M  FuncFvwmNextMaximized
+
+
+# Custom Focus Function
+DestroyFunc MyFocusFunc
+AddToFunc MyFocusFunc
++ I Iconify off
++ I FlipFocus
++ I Raise
++ I WarpToWindow !raise 5 5
+
+# Key Bindings
+Key Tab A M Next (CurrentDesk, AcceptsFocus) MyFocusFunc
+Key Tab A SM Prev (CurrentDesk, AcceptsFocus) MyFocusFunc
+
 # FuncFvwmNextAppWindow
 
 # Rofi
-Key Space                  A  4  Exec exec rofi -show run
-Key W                      A  4  Exec exec rofi -show windowcd
-Key e                      A  4  Exec exec $[infostore.launcher]
-Key q                      A  4  Exec exec $FVWM_USERDIR/scripts/rofi/logout.sh
+Key Space                  A  M  Exec exec rofi -show run
+Key d                      A  M  Exec exec rofi -show run
+Key W                      A  M  Exec exec rofi -show windowcd
+Key e                      A  M  Exec exec $[infostore.launcher]
+Key q                      A  M  Exec exec $FVWM_USERDIR/scripts/rofi/logout.sh
 
 # Terminal
-Key T                      A  MC Exec exec st 
+Key Return                  A  M Exec exec st 
 
 # Lock screen
 # Key L                      A  4 Exec exec xscreensaver-command -l
@@ -280,4 +302,3 @@ key XF86MonBrightnessDown  A N Exec exec xbacklight -dec 5
 
 # Flameshot
 Key Print   A    M  Exec exec flameshot gui
-

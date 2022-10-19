@@ -13,6 +13,11 @@ Dependencies
     st
     flameshot
     feh
+    kate
+    discord 
+    firefox
+    pcmanfm
+    xfce4-panel
 
 Keyboard Shortcuts
 

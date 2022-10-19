@@ -260,6 +260,7 @@ Key q                      A  M  Exec exec $FVWM_USERDIR/scripts/rofi/logout.sh
 
 # Terminal
 Key Return                  A  M Exec exec st 
+Key t                       A  MC Exec exec st 
 
 # Lock screen
 # Key L                      A  4 Exec exec xscreensaver-command -l

@@ -39,3 +39,7 @@ Keyboard Shortcuts
     Ctrl+Alt+T -- Open terminal window
 
     Ctrl+Alt+L -- Lock Screen
+   
+Trouble Shooting
+    rename win95 to win95.png, even if win95 is a png in proporties.
+    this is placed in ./fvwm/images/wallpaper

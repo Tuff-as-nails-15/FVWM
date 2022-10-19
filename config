@@ -90,9 +90,9 @@ Style * DecorateTransient, StackTransientParent
 Style * !FPGrabFocusTransient, FPReleaseFocusTransient
 DesktopSize 4x1
 
-# does something to stop multi DE's 
+# does something to stop multi DE's
 Emulate mwm
-HideGeometryWindow Move 
+HideGeometryWindow Move
 IgnoreModifiers L2
 ClickTime 550
 OpaqueMoveSize 100
@@ -146,7 +146,7 @@ Style panel          Sticky, !Title, WindowListSkip, CirculateSkip, BorderWidth 
 Style "gthumb"       EWMHIgnoreWindowType, !MWMDecor
 Style "Catfish"      EWMHIgnoreWindowType, !MWMDecor
 Style Xfce4-appfinder UsePPosition, EWMHUseStateHints
-Style caja           UsePPosition, EWMHUseStateHints 
+Style caja           UsePPosition, EWMHUseStateHints
 Style "nautilus"     EWMHIgnoreWindowType, !MWMDecor
 Style "tint2"        !Title, !Handles, !Borders, StaysOnTop, EWMHIgnoreStrutHints, Sticky, EWMHPlacementIgnoreWorkingArea, NeverFocus, WindowListSkip
 Style desktop_icon   CirculateSkip, WindowListSkip,  NoTitle
@@ -195,7 +195,7 @@ Mouse 2  R  C     WindowList mouse -1p -1p OnlyListSkip, NoGeometry
 
 #Mouse 1  W  4     Function "MoveAndRaise"
 Mouse 2  W  4     Menu Window mouse -1p -1p
-Mouse 3  W  4     WindowList (CurrentPage) mouse -1p -1p, NoGeometry 
+Mouse 3  W  4     WindowList (CurrentPage) mouse -1p -1p, NoGeometry
 #Mouse 3  W  CM    WindowList mouse -1p -1p OnlyListSkip, NoGeometry
 
 #Mouse 1  I  A     Function "MoveOrIconifyOrRaise"
@@ -238,16 +238,14 @@ Silent Key Tab             A  M  FuncFvwmNextMaximized
 
 
 # Custom Focus Function
-DestroyFunc MyFocusFunc
-AddToFunc MyFocusFunc
+DestroyFunc WindowListFunc
+AddToFunc WindowListFunc
 + I Iconify off
 + I FlipFocus
 + I Raise
-+ I WarpToWindow !raise 5 5
 
 # Key Bindings
-Key Tab A M Next (CurrentDesk, AcceptsFocus) MyFocusFunc
-Key Tab A SM Prev (CurrentDesk, AcceptsFocus) MyFocusFunc
+Key Tab A M WindowList Root c c CurrentDesk, NoGeometry, CurrentAtEnd, IconifiedAtEnd
 
 # FuncFvwmNextAppWindow
 
@@ -259,8 +257,8 @@ Key e                      A  M  Exec exec $[infostore.launcher]
 Key q                      A  M  Exec exec $FVWM_USERDIR/scripts/rofi/logout.sh
 
 # Terminal
-Key Return                  A  M Exec exec st 
-Key t                       A  MC Exec exec st 
+Key Return                  A  M Exec exec st
+Key t                       A  MC Exec exec st
 
 # Lock screen
 # Key L                      A  4 Exec exec xscreensaver-command -l
@@ -277,7 +275,7 @@ Key XF86AudioRaiseVolume   A  N  Exec exec amixer -D pulse sset Master 5%+
 Key XF86AudioLowerVolume   A  N  Exec exec amixer -D pulse sset Master 5%-
 
 
-# Backlight 
+# Backlight
 key XF86MonBrightnessUp    A N Exec exec xbacklight -inc 5
 key XF86MonBrightnessDown  A N Exec exec xbacklight -dec 5
 
@@ -297,7 +295,7 @@ AddToFunc InitFunction
 
 
 DestroyMenu
-# Backlight 
+# Backlight
 key XF86MonBrightnessUp    A N Exec exec xbacklight -inc 5
 key XF86MonBrightnessDown  A N Exec exec xbacklight -dec 5
 

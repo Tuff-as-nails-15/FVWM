@@ -1,5 +1,5 @@
 # FVWM
-This is the worst config i have ever seen, use at your own risk.
+use at your own risk.
 
 
 Dependencies

@@ -12,6 +12,7 @@ Dependencies
     xsettingsd
     st
     flameshot
+    feh
 
 Keyboard Shortcuts
 

@@ -45,16 +45,21 @@ Style "*" DecorateTransient, NoPPosition
 
 Style "gkrellm" Sticky,WindowListSkip,NoTitle
 Style "gkrellm" CirculateSkipIcon,CirculateSkip
+Style "stalonetray" Sticky,WindowListSkip
+Style "stalonetray" CirculateSkipIcon,CirculateSkip
 
 AddToFunc StartFunction
 + "I" exec gkrellm --geometry -0+0
++ "I" exec stalonetray
++ "I" exec conky
+
 + I All (Iconic) PlaceAgain Icon
 
 # Window Button Locations [1 Title 642]
 Mouse 1 6 A Iconify
 Mouse 1 4 A Maximize
 Mouse 1 2 A Close
-Mouse 1 1 A Menu MenuWindowOps
+# Mouse 1 1 A Menu MenuWindowOps
 
 AddToDecor   FvwmDecor
 + TitleStyle Centered Height 18 -- Flat
@@ -103,11 +108,11 @@ AddToMenu FvwmRootMenu "OWO" Title
 # left click menu
 DestroyMenu FvwmProgramsMenu
 AddToMenu   FvwmProgramsMenu "OwU" Title
-# Test (x chromium) + "Chromium" Exec exec chromium
 Test (x firefox) + "Firefox" Exec exec firefox
 Test (x kate) + "kate" Exec exec kate
 Test (x pcmanfm) + "Pcmanfm" Exec exec pcmanfm
 Test (x discord) + "Discord" Exec exec discord
+Test (x chromium) + "Chromium" Exec exec chromium
 
 # right click menu
 DestroyMenu FvwmOpsMenu
@@ -248,7 +253,7 @@ PipeRead fvwm-menu-desktop --enable-mini-icons --desktop kde
 DestroyFunc InitFunction
 AddToFunc InitFunction
 # will cause problems when move windows across pages
-+ I Exec exec feh --bg-scale $[fvwm_wallpaper]/lain.jpg
++ I Exec exec feh --bg-max $[fvwm_wallpaper]/lain.jpg
 + I Exec exec rofi -show run
 #------------------------------------------------------------------------------
 

@@ -17,7 +17,7 @@ Dependencies
     discord 
     firefox
     pcmanfm
-    xfce4-panel
+    gkrellm
 
 Keyboard Shortcuts
 

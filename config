@@ -41,9 +41,53 @@ ImagePath  $[FVWM_USERDIR]/themes/$[fvwm_theme]:$[FVWM_USERDIR]/3dpixmaps:+
 -----------------------------------
 # Start Function
 
+Style "*" DecorateTransient, NoPPosition
+
+Style "gkrellm" Sticky,WindowListSkip,NoTitle
+Style "gkrellm" CirculateSkipIcon,CirculateSkip
+
 AddToFunc StartFunction
-+ I Test (init) Exec exec xfce4-panel
++ "I" exec gkrellm --geometry -0+0
 + I All (Iconic) PlaceAgain Icon
+
+# Window Button Locations [1 Title 642]
+Mouse 1 6 A Iconify
+Mouse 1 4 A Maximize
+Mouse 1 2 A Close
+Mouse 1 1 A Menu MenuWindowOps
+
+AddToDecor   FvwmDecor
++ TitleStyle Centered Height 18 -- Flat
+
+# Draw a Square around All buttons
++ ButtonStyle All ActiveUp Vector 5 15x15@4 15x85@3 85x85@3 \
+              85x15@3 15x15@3 -- Flat
++ ButtonStyle All ToggledActiveUp Vector 5 15x15@4 15x85@3 \
+              85x85@3 85x15@3 15x15@3 -- Flat
++ ButtonStyle All ActiveDown Vector 5 20x20@4 20x80@3 80x80@3 \
+              80x20@3 20x20@3 -- Flat
++ ButtonStyle All ToggledActiveDown Vector 5 20x20@4 20x80@3 \
+              80x80@3 80x20@3 20x20@3 -- Flat
++ ButtonStyle All ToggledInactive Vector 5 47x47@3 57x53@3 \
+              53x53@3 53x47@3 47x47@3 -- Flat
++ ButtonStyle All Inactive Vector 5 47x47@3 57x53@3 53x53@3 \
+              53x47@3 47x47@3 -- Flat
+
+# Add the icon to each button
++ AddButtonStyle 1 Active Vector 5 45x45@3 55x45@3 55x55@3 \
+                 45x55@3 45x45@3
++ AddButtonStyle 2 Active Vector 4 35x35@3 65x65@3 65x35@4 35x65@3
++ AddButtonStyle 4 Active Vector 8 30x70@3 30x30@3 70x30@3 70x70@3 \
+                 30x70@3 30x50@4 50x50@3 50x70@3
++ AddButtonStyle 4 ToggledActiveUp Vector 8 30x70@3 30x30@3 70x30@3 \
+                 70x70@3 30x70@3 50x30@4 50x50@3 70x50@3
++ AddButtonStyle 6 Active Vector 5 35x60@3 65x60@3 65x50@3 \
+                 35x50@3 35x60@3
++ ButtonStyle All - Clear
++ ButtonStyle 1 - MwmDecorMenu
++ ButtonStyle 4 - MwmDecorMax
++ ButtonStyle 6 - MwmDecorMin
+
 #------------------------------------------------------------------------------
 # main menu
 DestroyMenu FvwmRootMenu
@@ -97,6 +141,17 @@ EdgeThickness 1
 
 # Removes titles
 Style * MWMDecor
+# Decor Styles
+# Style * BorderWidth 5, HandleWidth 5, MWMButtons, FvwmBorder, FirmBorder
+# Style * Colorset 1, HilightColorset 2
+# Style * BorderColorset 3, HilightBorderColorset 4
+
+Style * Colorset 1, HilightColorset 2, \
+        BorderColorset 3, HilightBorderColorset 4, \
+        BorderWidth 5, HandleWidth 5, \
+        FvwmBorder, FirmBorder, \
+        MWMButtons, UseDecor FvwmDecor
+
 
 #------------------------------------------------------------------------------
 # Mouse Bindings
@@ -163,7 +218,7 @@ Key W                      A  M  Exec exec rofi -show windowcd
 
 
 # Terminal
-Key Return                  A  M Exec exec xterm
+Key Return                  A  M Exec exec xfce4-terminal
 Key t                       A  MC Exec exec xterm
 
 
@@ -193,7 +248,7 @@ PipeRead fvwm-menu-desktop --enable-mini-icons --desktop kde
 DestroyFunc InitFunction
 AddToFunc InitFunction
 # will cause problems when move windows across pages
-+ I Exec exec feh --bg-scale $[fvwm_wallpaper]/win95.png
++ I Exec exec feh --bg-scale $[fvwm_wallpaper]/lain.jpg
 + I Exec exec rofi -show run
 #------------------------------------------------------------------------------
 
